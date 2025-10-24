@@ -28,39 +28,74 @@ export default function MyAccount() {
       </header>
 
       <section className="balance-card">
-  <div className="balance-item">
-    <p>My Assets (USDT)</p>
-    <h3>7,612,732.00</h3>
-  </div>
-  <div className="balance-item">
-    <p>Deposit (USDT)</p>
-    <h3>184,497.5</h3>
-    <button className="refund-btn">Apply for Refund</button>
-  </div>
-</section>
-
+        <div className="balance-item">
+          <p>My Assets (USDT)</p>
+          <h3>7,612,732.00</h3>
+        </div>
+        <div className="balance-item">
+          <p>Deposit (USDT)</p>
+          <h3>184,497.5</h3>
+          <button className="refund-btn">Apply for Refund</button>
+        </div>
+      </section>
 
       <section className="actions">
-        <div className="action-item"><FaWallet /><p>Deposit</p></div>
-        <div className="action-item"><FaExchangeAlt /><p>Withdraw</p></div>
-        <div className="action-item"><FaExchangeAlt /><p>Transfer</p></div>
-        <div className="action-item"><FaArrowUp /><p>Upgrade</p></div>
+        <div className="action-item">
+          <FaWallet />
+          <p>Deposit</p>
+        </div>
+        <div className="action-item">
+          <FaExchangeAlt />
+          <p>Withdraw</p>
+        </div>
+        <div className="action-item">
+          <FaExchangeAlt />
+          <p>Transfer</p>
+        </div>
+        <div className="action-item">
+          <FaArrowUp />
+          <p>Upgrade</p>
+        </div>
       </section>
 
       <section className="menu">
-        <div className="menu-item"><FaBell /><span>Message Notification</span></div>
-        <div className="menu-item"><FaDollarSign /><span>Quick Buy</span></div>
-        <div className="menu-item"><FaQuestionCircle /><span>Help Center</span></div>
-        <div className="menu-item"><FaComments /><span>Language Switch</span></div>
+        <div className="menu-item">
+          <FaBell />
+          <span>Message Notification</span>
+        </div>
+        <div className="menu-item">
+          <FaDollarSign />
+          <span>Quick Buy</span>
+        </div>
+        <div className="menu-item">
+          <FaQuestionCircle />
+          <span>Help Center</span>
+        </div>
+        <div className="menu-item">
+          <FaComments />
+          <span>Language Switch</span>
+        </div>
       </section>
 
       <button className="switch-account">Switch to another account</button>
 
       <footer className="bottom-nav">
-        <div className="nav-item"><FaHome /><p>Home</p></div>
-        <div className="nav-item"><FaExchangeAlt /><p>Trade</p></div>
-        <div className="nav-item"><FaArrowUp /><p>Transfer</p></div>
-        <div className="nav-item active"><FaUser /><p>My Account</p></div>
+        <div className="nav-item">
+          <FaHome />
+          <p>Home</p>
+        </div>
+        <div className="nav-item">
+          <FaExchangeAlt />
+          <p>Trade</p>
+        </div>
+        <div className="nav-item">
+          <FaArrowUp />
+          <p>Transfer</p>
+        </div>
+        <div className="nav-item active">
+          <FaUser />
+          <p>My Account</p>
+        </div>
       </footer>
     </div>
   );
