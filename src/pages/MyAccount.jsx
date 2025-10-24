@@ -12,10 +12,19 @@ import {
   FaHome,
   FaUser,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function MyAccount() {
+  const navigate = useNavigate();
+
+  // Redirects to login page
+  const handleLogout = () => {
+    navigate("/login");
+  };
+
   return (
     <div className="account-page">
+      {/* HEADER */}
       <header className="account-header">
         <div className="profile">
           <div className="avatar">M</div>
@@ -27,6 +36,7 @@ export default function MyAccount() {
         <FaCog className="settings-icon" />
       </header>
 
+      {/* BALANCE SECTION */}
       <section className="balance-card">
         <div className="balance-item">
           <p>My Assets (USDT)</p>
@@ -39,6 +49,7 @@ export default function MyAccount() {
         </div>
       </section>
 
+      {/* ACTIONS */}
       <section className="actions">
         <div className="action-item">
           <FaWallet />
@@ -58,6 +69,7 @@ export default function MyAccount() {
         </div>
       </section>
 
+      {/* MENU */}
       <section className="menu">
         <div className="menu-item">
           <FaBell />
@@ -77,8 +89,12 @@ export default function MyAccount() {
         </div>
       </section>
 
-      <button className="switch-account">Switch to another account</button>
+      {/* SWITCH ACCOUNT (Logout) */}
+      <button className="switch-account" onClick={handleLogout}>
+        Switch to another account
+      </button>
 
+      {/* BOTTOM NAV */}
       <footer className="bottom-nav">
         <div className="nav-item">
           <FaHome />

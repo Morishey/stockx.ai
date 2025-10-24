@@ -1,0 +1,169 @@
+/* StockX.ai responsive AuthChoice page with clickable logo */
+
+.auth-choice-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+  color: white;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+/* -------- LOGO -------- */
+.auth-logo {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #00ffff;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
+  animation: fadeInDown 0.8s ease-in-out;
+  text-decoration: none;
+  transition: transform 0.3s ease, text-shadow 0.3s ease;
+}
+
+.auth-logo span {
+  color: #00ff9d;
+}
+
+.auth-logo:hover {
+  transform: scale(1.05);
+  text-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+}
+
+/* -------- AUTH CARD -------- */
+.auth-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 3rem 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 25px rgba(0, 255, 157, 0.2);
+  max-width: 400px;
+  width: 100%;
+  animation: fadeIn 0.9s ease-in-out;
+}
+
+.auth-card h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.auth-card p {
+  color: #ccc;
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+}
+
+/* -------- BUTTONS -------- */
+.auth-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.auth-buttons button {
+  flex: 1;
+  padding: 0.9rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+/* Login Button */
+.login-btn {
+  background: #00ffff;
+  color: #000;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+}
+
+.login-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+}
+
+/* Register Button */
+.register-btn {
+  background: #00ff9d;
+  color: #000;
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+}
+
+.register-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(0, 255, 157, 0.8);
+}
+
+/* -------- RESPONSIVE DESIGN -------- */
+@media (max-width: 768px) {
+  .auth-card {
+    max-width: 350px;
+    padding: 2.5rem 2rem;
+  }
+
+  .auth-buttons {
+    flex-direction: column;
+  }
+
+  .auth-buttons button {
+    width: 100%;
+  }
+
+  .auth-logo {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .auth-card h1 {
+    font-size: 1.6rem;
+  }
+
+  .auth-buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .auth-buttons button {
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 0.8rem;
+  }
+
+  .auth-logo {
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+  }
+}
+
+/* -------- ANIMATIONS -------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

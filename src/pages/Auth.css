@@ -1,0 +1,100 @@
+/* ========= Auth.css ========= */
+/* StockX.ai themed login/register pages */
+
+.auth-page {
+  background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f0f0f0;
+  padding: 2rem;
+}
+
+.auth-box {
+  background: rgba(0, 20, 30, 0.5);
+  backdrop-filter: blur(12px);
+  border-radius: 1.5rem;
+  padding: 2rem 2.5rem;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+}
+
+.auth-box h2 {
+  color: #00ff9d;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #a0a0a0;
+  margin-bottom: 2rem;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-form input {
+  padding: 0.9rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+}
+
+.auth-form input:focus {
+  border-color: #00ff9d;
+  box-shadow: 0 0 10px rgba(0, 255, 157, 0.4);
+}
+
+.glow-btn {
+  background: linear-gradient(90deg, #00ffff, #00ff88);
+  border: none;
+  color: #000;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px #00ffff;
+}
+
+.glow-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px #00ff88;
+}
+
+.auth-link {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: #ccc;
+}
+
+.auth-link a {
+  color: #00ff9d;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .auth-box {
+    padding: 1.5rem;
+  }
+
+  .auth-box h2 {
+    font-size: 1.7rem;
+  }
+}
