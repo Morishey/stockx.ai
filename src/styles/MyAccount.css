@@ -396,6 +396,9 @@
   }
 
   .balance-item h3 {
+    font-size: 1.2rem;
+  }
+  .balance-item1 h3 {
     font-size: 1.5rem;
   }
 
