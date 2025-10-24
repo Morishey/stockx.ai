@@ -89,7 +89,7 @@
 
 .balance-item {
   flex: 1;
-  background: rgba(255, 255, 255, 0.05);
+  /* background: rgba(255, 255, 255, 0.05); */
   border: 1px solid var(--border-color);
   border-radius: 1rem;
   padding: 1rem 1.5rem;
@@ -108,7 +108,7 @@
   padding: 1rem 1.5rem;
   display: flex;
   flex-direction: column;
-  justify-content: safe;
+  justify-content:safe;
   align-items: center;
   text-align: center;
   min-height: 150px; /* ensures equal height */
@@ -129,14 +129,14 @@
 
 .balance-item h3 {
   margin: 0.3rem 0;
-  color: whitesmoke;
+  color: var(--accent);
   font-size: 1.8rem;
   font-weight: 600;
 }
 .balance-item1 h3 {
-  margin-top: 1.2rem;
+  margin-top: 1.0rem;
   color: whitesmoke;
-  font-size: 1.8rem;
+  font-size: 1.9rem;
   font-weight: 600;
 }
 

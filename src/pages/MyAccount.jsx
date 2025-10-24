@@ -38,7 +38,7 @@ export default function MyAccount() {
 
       {/* BALANCE SECTION */}
       <section className="balance-card">
-        <div className="balance-item">
+        <div className="balance-item1">
           <p>My Assets (USDT)</p>
           <h3>7,612,732.00</h3>
         </div>
