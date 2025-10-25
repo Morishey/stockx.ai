@@ -1,6 +1,7 @@
 // App.jsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
+  BrowserRouter as Router,
   Routes,
   Route,
   Link,
@@ -34,10 +35,7 @@ function PageWrapper({ children }) {
 /* ---------- HOME PAGE ---------- */
 function Home() {
   const navigate = useNavigate();
-
-  const handleGetStarted = () => {
-    navigate("/auth");
-  };
+  const handleGetStarted = () => navigate("/auth");
 
   return (
     <main className="hero">
@@ -57,7 +55,11 @@ function Home() {
 /* ---------- HEADER COMPONENT ---------- */
 function Header({ isLoggedIn, handleLogout }) {
   const location = useLocation();
-  const hideHeader = ["/login", "/register", "/auth"].includes(location.pathname);
+
+  // Hide header on Home, Login, Register, and AuthChoice pages
+  const hideHeader = ["/", "/login", "/register", "/auth"].includes(
+    location.pathname
+  );
 
   if (hideHeader) return null;
 
@@ -83,13 +85,37 @@ function Header({ isLoggedIn, handleLogout }) {
   );
 }
 
-/* ---------- MAIN APP COMPONENT ---------- */
-export default function App() {
+/* ---------- APP BODY (INSIDE ROUTER) ---------- */
+function AppContent() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const location = useLocation();
 
+  // load login state
+  useEffect(() => {
+    const storedLogin = localStorage.getItem("isLoggedIn");
+    if (storedLogin === "true") setIsLoggedIn(true);
+  }, []);
+
+  // persist login state
+  useEffect(() => {
+    localStorage.setItem("isLoggedIn", isLoggedIn);
+  }, [isLoggedIn]);
+
   const handleLogin = () => setIsLoggedIn(true);
-  const handleLogout = () => setIsLoggedIn(false);
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem("isLoggedIn");
+  };
+
+  // Disable scrolling on specific pages
+  useEffect(() => {
+    const noScrollPages = ["/", "/login", "/register", "/auth"];
+    if (noScrollPages.includes(location.pathname)) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [location.pathname]);
 
   return (
     <>
@@ -140,5 +166,14 @@ export default function App() {
         </Routes>
       </AnimatePresence>
     </>
+  );
+}
+
+/* ---------- WRAP EVERYTHING IN ROUTER ---------- */
+export default function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }

@@ -83,6 +83,8 @@ main,
 
 .hero {
   text-align: center;
+  justify-content: center;
+  align-items: center;
   padding: 2rem;
 }
 
@@ -129,6 +131,10 @@ main,
   font-size: 0.9rem;
   margin-left: 1rem;
   transition: all 0.3s ease;
+}
+.no-scroll {
+  height: 100vh;
+  overflow: hidden;
 }
 
 .logout-btn:hover {
