@@ -1,11 +1,19 @@
-// src/components/Header.jsx
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import "../App.css";
 
-export default function Header({ isLoggedIn, handleLogout }) {
+export default function Header() {
   const location = useLocation();
-  const hideHeader = ["/login", "/register", "/auth"].includes(location.pathname);
+
+  // Hide nav bar completely on some pages (optional)
+  const hideHeader = [
+    "/",
+    "/login",
+    "/register",
+    "/auth",
+    "/success",
+    "/admin-login",
+    "/admin",
+  ].includes(location.pathname);
 
   if (hideHeader) return null;
 
@@ -20,12 +28,6 @@ export default function Header({ isLoggedIn, handleLogout }) {
         <Link to="/markets">Markets</Link>
         <Link to="/portfolio">Portfolio</Link>
         <Link to="/account">Account</Link>
-
-        {isLoggedIn && (
-          <button onClick={handleLogout} className="logout-btn">
-            Logout
-          </button>
-        )}
       </nav>
     </header>
   );

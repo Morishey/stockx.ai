@@ -156,6 +156,30 @@
   text-align: left;
 }
 
+/* Error message below password */
+.error-message {
+  color: #ff4c4c;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  text-align: left;
+}
+
+/* Make the "Create Account" look like a button link */
+.auth-link-btn {
+  background: none;
+  border: none;
+  color: #00ff9d;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.auth-link-btn:hover {
+  color: #00ffff;
+  text-decoration: none; /* no underline */
+}
+
 
 /* ---------- ANIMATIONS ---------- */
 @keyframes fadeIn {

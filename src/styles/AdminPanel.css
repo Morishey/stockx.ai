@@ -1,0 +1,310 @@
+/* ========= AdminPanel.css ========= */
+
+/* ---------- GLOBAL THEME ---------- */
+:root {
+  --neon-green: #00ff9d;
+  --neon-blue: #00c6ff;
+  --dark-bg: #0b0f17;
+  --darker-bg: #03060d;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: var(--dark-bg);
+  color: #fff;
+}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==========================================================
+   ADMIN LOGIN PAGE
+   ========================================================== */
+.admin-login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: radial-gradient(circle at top, var(--dark-bg) 0%, var(--darker-bg) 100%);
+  color: #fff;
+  padding: 1rem;
+}
+
+.admin-login-container {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 0 25px rgba(0, 255, 157, 0.2);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.admin-login-container h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--neon-green);
+  margin-bottom: 1.8rem;
+}
+
+.admin-login-container input {
+  width: 100%;
+  padding: 0.9rem;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  transition: 0.3s ease;
+}
+
+.admin-login-container input::placeholder {
+  color: #bbb;
+}
+
+.admin-login-container input:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--neon-green);
+  box-shadow: 0 0 10px rgba(0, 255, 157, 0.4);
+}
+
+.admin-error {
+  color: #ff4b4b;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+/* ---------- LOGIN BUTTON ---------- */
+.admin-btn {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.admin-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.6);
+}
+
+/* ==========================================================
+   ADMIN PANEL
+   ========================================================== */
+.admin-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 2rem 1rem 6rem; /* Extra bottom padding for fixed logout */
+  background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+  animation: fadeIn 0.8s ease-in-out;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.admin-panel h1 {
+  color: var(--neon-green);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- TOP CONTROL BUTTONS ---------- */
+.admin-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.admin-controls button {
+  background: transparent;
+  border: 1px solid var(--neon-green);
+  color: var(--neon-green);
+  padding: 0.8rem 1.6rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: capitalize;
+}
+
+.admin-controls button:hover {
+  background: var(--neon-green);
+  color: #000;
+  box-shadow: 0 0 12px rgba(0, 255, 157, 0.5);
+  transform: translateY(-2px);
+}
+
+/* ---------- USERS TABLE ---------- */
+.admin-table {
+  width: 100%;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  overflow-x: auto;
+  box-shadow: 0 0 15px rgba(0, 255, 157, 0.15);
+  margin-bottom: 2rem;
+}
+
+.admin-table table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  white-space: nowrap;
+}
+
+.admin-table th {
+  background: rgba(0, 255, 157, 0.1);
+  color: var(--neon-green);
+  font-weight: 600;
+}
+
+.admin-table tr:hover {
+  background: rgba(255, 255, 255, 0.07);
+}
+
+/* ---------- ACTION BUTTONS ---------- */
+.action-btn {
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--neon-green);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--neon-green);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+  background: var(--neon-green);
+  color: #000;
+  box-shadow: 0 0 10px rgba(0, 255, 157, 0.6);
+  transform: translateY(-2px);
+}
+
+/* ---------- LOGOUT BUTTON (FIXED) ---------- */
+.logout-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, var(--neon-green), var(--neon-blue));
+  color: #000;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  padding: 0.9rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.logout-btn:hover {
+  transform: translateX(-50%) scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 255, 157, 0.7);
+}
+
+/* ---------- EMPTY STATE ---------- */
+.no-users {
+  text-align: center;
+  font-size: 1rem;
+  color: #ccc;
+  margin-top: 2rem;
+}
+
+/* ==========================================================
+   RESPONSIVE DESIGN
+   ========================================================== */
+@media (max-width: 900px) {
+  .admin-controls {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .admin-table {
+    font-size: 0.9rem;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    padding: 0.8rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-panel {
+    justify-content: center;
+    padding: 1.5rem 0.8rem 5rem;
+  }
+
+  .admin-panel h1 {
+    font-size: 1.6rem;
+  }
+
+  .admin-controls button {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  .admin-table {
+    border-radius: 10px;
+    font-size: 0.85rem;
+  }
+
+  .admin-table table {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-login-container {
+    padding: 2rem 1.2rem;
+  }
+
+  .admin-login-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .admin-btn {
+    font-size: 0.95rem;
+  }
+
+  .logout-btn {
+    width: 90%;
+    font-size: 0.95rem;
+  }
+}

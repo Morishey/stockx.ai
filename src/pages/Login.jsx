@@ -18,18 +18,33 @@ export default function Login({ onLogin }) {
       (user) => user.email === email && user.password === password
     );
 
-    if (matchedUser) {
-      setError("");
-      onLogin();
-    } else {
-      setError("Login invalid. Try again");
+    const loginRestricted = localStorage.getItem("loginRestricted") === "true";
+
+    if (loginRestricted) {
+      setError("🚫 Login temporarily disabled by admin.");
+      return;
     }
+
+    if (!matchedUser) {
+      setError("❌ Login invalid. Try again.");
+      return;
+    }
+
+    if (matchedUser.isBlocked) {
+      setError("🚷 Your account has been blocked by admin.");
+      return;
+    }
+
+    // ✅ Successful login
+    setError("");
+    onLogin();
   };
 
   return (
     <div className="auth-page">
       <div className="auth-container">
         <h2>Sign In</h2>
+
         <form onSubmit={handleSubmit}>
           <input
             type="email"
@@ -55,6 +70,7 @@ export default function Login({ onLogin }) {
             </span>
           </div>
 
+          {/* ✅ Error message appears below password */}
           {error && <p className="error-message">{error}</p>}
 
           <button type="submit" className="auth-btn">
