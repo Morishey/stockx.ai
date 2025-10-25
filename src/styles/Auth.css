@@ -57,7 +57,7 @@
   box-shadow: 0 0 8px rgba(0, 255, 157, 0.4);
 }
 
-/* ---------- BUTTON ---------- */
+/* ---------- MAIN BUTTON ---------- */
 .auth-btn {
   background: linear-gradient(90deg, #00ff9d, #00c6ff);
   color: #000;
@@ -68,6 +68,8 @@
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 0.5rem;
 }
 
 .auth-btn:hover {
@@ -75,21 +77,26 @@
   box-shadow: 0 0 15px rgba(0, 255, 157, 0.6);
 }
 
-/* ---------- LINKS ---------- */
-.auth-container p {
-  margin-top: 1rem;
+/* ---------- FOOTER TEXT & LINK (for login/register) ---------- */
+.auth-footer-text {
+  margin-top: 1.5rem;
   font-size: 0.9rem;
   color: #ccc;
 }
 
-.auth-container a {
+.auth-link-btn {
+  background: none;
+  border: none;
   color: #00ff9d;
-  text-decoration: none;
-  font-weight: 500;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none; /* ❌ removed underline */
+  transition: color 0.3s ease, transform 0.2s ease;
 }
 
-.auth-container a:hover {
-  text-decoration: underline;
+.auth-link-btn:hover {
+  color: #00ffff;
+  transform: scale(1.05);
 }
 
 /* ---------- SUCCESS TRANSITION (shared style) ---------- */

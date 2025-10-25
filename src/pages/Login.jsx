@@ -1,34 +1,52 @@
 // src/pages/Login.jsx
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
 
 export default function Login({ onLogin }) {
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    // Simulated login success
-    onLogin();
-    navigate("/account"); // Redirect to MyAccount
+    const email = e.target.email.value.trim();
+    const password = e.target.password.value.trim();
+
+    const users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+    const foundUser = users.find(
+      (user) => user.email === email && user.password === password
+    );
+
+    if (foundUser) {
+      localStorage.setItem("activeUser", JSON.stringify(foundUser));
+      onLogin();
+    } else {
+      alert("Invalid credentials or user not found.");
+    }
   };
 
   return (
     <div className="auth-page">
-      <div className="auth-box">
-        <h2>Welcome Back</h2>
-        <p className="subtitle">
-          Log in to your StockX<span>.ai</span> account
-        </p>
+      <div className="auth-container">
+        <h2>Login</h2>
 
-        <form className="auth-form" onSubmit={handleSubmit}>
-          <input type="email" placeholder="Email Address" required />
-          <input type="password" placeholder="Password" required />
-          <button type="submit" className="glow-btn">Login</button>
+        <form onSubmit={handleLogin}>
+          <input type="email" name="email" placeholder="Email" required />
+          <input type="password" name="password" placeholder="Password" required />
+          <button type="submit" className="auth-btn">
+            Login
+          </button>
         </form>
 
-        <p className="auth-link">
-          Don’t have an account? <Link to="/register">Register</Link>
+        {/* ✅ Clickable link styled without underline */}
+        <p className="auth-footer-text">
+          Don’t have an account?{" "}
+          <button
+            type="button"
+            className="auth-link-btn"
+            onClick={() => navigate("/register")}
+          >
+            Create Account
+          </button>
         </p>
       </div>
     </div>

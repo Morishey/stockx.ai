@@ -1,3 +1,4 @@
+// src/pages/MyAccount.jsx
 import React from "react";
 import "../styles/MyAccount.css";
 import {
@@ -17,26 +18,27 @@ import { useNavigate } from "react-router-dom";
 export default function MyAccount() {
   const navigate = useNavigate();
 
-  // Redirects to login page
+  const activeUser = JSON.parse(localStorage.getItem("activeUser"));
+  const username = activeUser?.username || "Guest";
+
   const handleLogout = () => {
+    localStorage.removeItem("activeUser");
     navigate("/login");
   };
 
   return (
     <div className="account-page">
-      {/* HEADER */}
       <header className="account-header">
         <div className="profile">
-          <div className="avatar">M</div>
+          <div className="avatar">{username.charAt(0).toUpperCase()}</div>
           <div className="user-info">
-            <h2>Morishey</h2>
+            <h2>{username}</h2>
             <p>VIP1</p>
           </div>
         </div>
         <FaCog className="settings-icon" />
       </header>
 
-      {/* BALANCE SECTION */}
       <section className="balance-card">
         <div className="balance-item1">
           <p>My Assets (USDT)</p>
@@ -49,7 +51,6 @@ export default function MyAccount() {
         </div>
       </section>
 
-      {/* ACTIONS */}
       <section className="actions">
         <div className="action-item">
           <FaWallet />
@@ -69,7 +70,6 @@ export default function MyAccount() {
         </div>
       </section>
 
-      {/* MENU */}
       <section className="menu">
         <div className="menu-item">
           <FaBell />
@@ -89,12 +89,10 @@ export default function MyAccount() {
         </div>
       </section>
 
-      {/* SWITCH ACCOUNT (Logout) */}
       <button className="switch-account" onClick={handleLogout}>
-        Switch to another account
+        Logout
       </button>
 
-      {/* BOTTOM NAV */}
       <footer className="bottom-nav">
         <div className="nav-item">
           <FaHome />
