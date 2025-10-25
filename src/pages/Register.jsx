@@ -1,31 +1,30 @@
 // src/pages/Register.jsx
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Auth.css";
 
 export default function Register() {
   const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegister = (e) => {
     e.preventDefault();
 
-    const username = e.target.username.value.trim();
-    const email = e.target.email.value.trim();
-    const password = e.target.password.value.trim();
+    const newUser = { username, email, password };
+    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
 
-    // ✅ Save new user
-    const users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
-    const userExists = users.find((u) => u.email === email);
-
-    if (userExists) {
-      alert("User already exists. Please login instead.");
+    // Prevent duplicate accounts
+    if (existingUsers.some((user) => user.email === email)) {
+      alert("Account already exists with this email.");
       return;
     }
 
-    users.push({ username, email, password });
-    localStorage.setItem("registeredUsers", JSON.stringify(users));
+    existingUsers.push(newUser);
+    localStorage.setItem("users", JSON.stringify(existingUsers));
 
-    // ✅ Redirect to success transition
     navigate("/success", {
       state: { message: "✅ Successful! Account created — Sign in to continue." },
     });
@@ -36,25 +35,41 @@ export default function Register() {
       <div className="auth-container">
         <h2>Create Account</h2>
         <form onSubmit={handleRegister}>
-          <input type="text" name="username" placeholder="Username" required />
-          <input type="email" name="email" placeholder="Email" required />
-          <input type="password" name="password" placeholder="Password" required />
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <div className="password-wrapper">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <span
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </span>
+          </div>
+
           <button type="submit" className="auth-btn">
             Register
           </button>
         </form>
-
-        {/* ✅ Clickable "Login" link styled without underline */}
-        <p className="auth-footer-text">
-          Already have an account?{" "}
-          <button
-            type="button"
-            className="auth-link-btn"
-            onClick={() => navigate("/login")}
-          >
-            Login
-          </button>
-        </p>
       </div>
     </div>
   );

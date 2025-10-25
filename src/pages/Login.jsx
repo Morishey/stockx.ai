@@ -1,52 +1,72 @@
 // src/pages/Login.jsx
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import "../styles/Auth.css";
 
 export default function Login({ onLogin }) {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
 
-  const handleLogin = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const email = e.target.email.value.trim();
-    const password = e.target.password.value.trim();
 
-    const users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
-    const foundUser = users.find(
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+    const matchedUser = storedUsers.find(
       (user) => user.email === email && user.password === password
     );
 
-    if (foundUser) {
-      localStorage.setItem("activeUser", JSON.stringify(foundUser));
+    if (matchedUser) {
+      setError("");
       onLogin();
     } else {
-      alert("Invalid credentials or user not found.");
+      setError("Login invalid. Try again");
     }
   };
 
   return (
     <div className="auth-page">
       <div className="auth-container">
-        <h2>Login</h2>
+        <h2>Sign In</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <form onSubmit={handleLogin}>
-          <input type="email" name="email" placeholder="Email" required />
-          <input type="password" name="password" placeholder="Password" required />
+          <div className="password-wrapper">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <span
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </span>
+          </div>
+
+          {error && <p className="error-message">{error}</p>}
+
           <button type="submit" className="auth-btn">
             Login
           </button>
         </form>
 
-        {/* ✅ Clickable link styled without underline */}
         <p className="auth-footer-text">
           Don’t have an account?{" "}
-          <button
-            type="button"
-            className="auth-link-btn"
-            onClick={() => navigate("/register")}
-          >
+          <Link to="/register" className="auth-link-btn">
             Create Account
-          </button>
+          </Link>
         </p>
       </div>
     </div>
