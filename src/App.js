@@ -4,7 +4,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
   useLocation,
   useNavigate,
 } from "react-router-dom";
@@ -16,8 +15,14 @@ import MyAccount from "./pages/MyAccount";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AuthChoice from "./pages/AuthChoice";
+import Home from "./pages/Home";
+import LoadingScreen from "./pages/LoadingScreen";
+import SuccessTransition from "./pages/SuccessTransition";
 
-/* ---------- PAGE TRANSITION WRAPPER ---------- */
+// Components
+import Header from "./components/Header";
+
+/* ---------- PAGE WRAPPER ---------- */
 function PageWrapper({ children }) {
   return (
     <motion.div
@@ -32,84 +37,51 @@ function PageWrapper({ children }) {
   );
 }
 
-/* ---------- HOME PAGE ---------- */
-function Home() {
-  const navigate = useNavigate();
-  const handleGetStarted = () => navigate("/auth");
-
-  return (
-    <main className="hero">
-      <div className="hero-content">
-        <h2>
-          Welcome to <span>StockX.ai</span>
-        </h2>
-        <p>Track, trade, and grow your wealth with AI-driven insights.</p>
-        <button className="glow-btn" onClick={handleGetStarted}>
-          Get Started
-        </button>
-      </div>
-    </main>
-  );
-}
-
-/* ---------- HEADER COMPONENT ---------- */
-function Header({ isLoggedIn, handleLogout }) {
-  const location = useLocation();
-
-  // Hide header on Home, Login, Register, and AuthChoice pages
-  const hideHeader = ["/", "/login", "/register", "/auth"].includes(
-    location.pathname
-  );
-
-  if (hideHeader) return null;
-
-  return (
-    <header className="header">
-      <Link to="/" className="logo">
-        StockX<span>.ai</span>
-      </Link>
-
-      <nav className="nav">
-        <Link to="/">Home</Link>
-        <Link to="/markets">Markets</Link>
-        <Link to="/portfolio">Portfolio</Link>
-        <Link to="/account">Account</Link>
-
-        {isLoggedIn && (
-          <button onClick={handleLogout} className="logout-btn">
-            Logout
-          </button>
-        )}
-      </nav>
-    </header>
-  );
-}
-
-/* ---------- APP BODY (INSIDE ROUTER) ---------- */
+/* ---------- APP CONTENT ---------- */
 function AppContent() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingAction, setLoadingAction] = useState(""); // ✅ new state
   const location = useLocation();
+  const navigate = useNavigate();
 
-  // load login state
+  // Restore login state
   useEffect(() => {
     const storedLogin = localStorage.getItem("isLoggedIn");
     if (storedLogin === "true") setIsLoggedIn(true);
   }, []);
 
-  // persist login state
+  // Save login state
   useEffect(() => {
     localStorage.setItem("isLoggedIn", isLoggedIn);
   }, [isLoggedIn]);
 
-  const handleLogin = () => setIsLoggedIn(true);
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    localStorage.removeItem("isLoggedIn");
+  /* ---------- LOGIN ---------- */
+  const handleLogin = () => {
+    setLoadingAction("login"); // ✅ explicitly track action
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoggedIn(true);
+      setIsLoading(false);
+      navigate("/account");
+    }, 2000);
   };
 
-  // Disable scrolling on specific pages
+  /* ---------- LOGOUT ---------- */
+  const handleLogout = () => {
+    setLoadingAction("logout"); // ✅ explicitly track action
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoggedIn(false);
+      localStorage.removeItem("isLoggedIn");
+      setIsLoading(false);
+      navigate("/login");
+    }, 2000);
+  };
+
+  /* ---------- DISABLE SCROLL ON AUTH PAGES ---------- */
   useEffect(() => {
-    const noScrollPages = ["/", "/login", "/register", "/auth"];
+    const noScrollPages = ["/", "/login", "/register", "/auth", "/success"];
     if (noScrollPages.includes(location.pathname)) {
       document.body.classList.add("no-scroll");
     } else {
@@ -117,6 +89,17 @@ function AppContent() {
     }
   }, [location.pathname]);
 
+  /* ---------- SHOW LOADING SCREEN ---------- */
+  if (isLoading) {
+    // ✅ Use the tracked action instead of pathname
+    let message = "Please wait...";
+    if (loadingAction === "login") message = "Logging in...";
+    if (loadingAction === "logout") message = "Logging out...";
+
+    return <LoadingScreen message={message} />;
+  }
+
+  /* ---------- ROUTES ---------- */
   return (
     <>
       <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
@@ -131,6 +114,7 @@ function AppContent() {
               </PageWrapper>
             }
           />
+
           <Route
             path="/auth"
             element={
@@ -139,6 +123,7 @@ function AppContent() {
               </PageWrapper>
             }
           />
+
           <Route
             path="/account"
             element={
@@ -147,6 +132,7 @@ function AppContent() {
               </PageWrapper>
             }
           />
+
           <Route
             path="/login"
             element={
@@ -155,11 +141,22 @@ function AppContent() {
               </PageWrapper>
             }
           />
+
           <Route
             path="/register"
             element={
               <PageWrapper>
                 <Register />
+              </PageWrapper>
+            }
+          />
+
+          {/* ✅ Success Transition Route */}
+          <Route
+            path="/success"
+            element={
+              <PageWrapper>
+                <SuccessTransition />
               </PageWrapper>
             }
           />
@@ -169,7 +166,7 @@ function AppContent() {
   );
 }
 
-/* ---------- WRAP EVERYTHING IN ROUTER ---------- */
+/* ---------- MAIN APP WRAPPER ---------- */
 export default function App() {
   return (
     <Router>

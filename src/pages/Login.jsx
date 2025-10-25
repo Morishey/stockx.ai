@@ -1,7 +1,7 @@
 // src/pages/Login.jsx
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./Auth.css";
+import "../styles/Auth.css";
 
 export default function Login({ onLogin }) {
   const navigate = useNavigate();
