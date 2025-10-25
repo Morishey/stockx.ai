@@ -41,7 +41,7 @@ function PageWrapper({ children }) {
 function AppContent() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [loadingAction, setLoadingAction] = useState(""); // ✅ new state
+  const [loadingAction, setLoadingAction] = useState(""); // ✅ track login/logout type
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -58,7 +58,7 @@ function AppContent() {
 
   /* ---------- LOGIN ---------- */
   const handleLogin = () => {
-    setLoadingAction("login"); // ✅ explicitly track action
+    setLoadingAction("login");
     setIsLoading(true);
     setTimeout(() => {
       setIsLoggedIn(true);
@@ -69,7 +69,7 @@ function AppContent() {
 
   /* ---------- LOGOUT ---------- */
   const handleLogout = () => {
-    setLoadingAction("logout"); // ✅ explicitly track action
+    setLoadingAction("logout");
     setIsLoading(true);
     setTimeout(() => {
       setIsLoggedIn(false);
@@ -91,18 +91,19 @@ function AppContent() {
 
   /* ---------- SHOW LOADING SCREEN ---------- */
   if (isLoading) {
-    // ✅ Use the tracked action instead of pathname
     let message = "Please wait...";
-    if (loadingAction === "login") message = "Logging in...";
-    if (loadingAction === "logout") message = "Logging out...";
-
+    if (loadingAction === "login") message = "Preparing your dashboard...";
+    if (loadingAction === "logout") message = "Exiting dashboard...";
     return <LoadingScreen message={message} />;
   }
 
   /* ---------- ROUTES ---------- */
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
+      {/* ✅ Hide Header on non-dashboard pages */}
+      {!["/", "/login", "/register", "/auth", "/success"].includes(
+        location.pathname
+      ) && <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}
 
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>

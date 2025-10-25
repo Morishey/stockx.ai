@@ -1,151 +1,29 @@
-/* LoadingScreen.css */
-
-.loading-container {
+/* src/styles/LoadingScreen.css */
+.loading-page {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
-  width: 100%;
+  align-items: center;
+  min-height: 100vh;
   background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
-  color: #00ff9d;
-  font-family: "Poppins", sans-serif;
-  font-size: 1.2rem;
-  letter-spacing: 0.5px;
-}
-
-.spinner {
-  width: 60px;
-  height: 60px;
-  border: 4px solid rgba(255, 255, 255, 0.2);
-  border-top: 4px solid #00ff9d;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
-}
-
-.loading-text {
   color: white;
-  font-weight: 500;
-  text-align: center;
 }
-/* LoadingScreen.css */
+
 .loading-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100%;
-  background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
-  color: #00ff9d;
-  font-family: "Poppins", sans-serif;
-  font-size: 1.2rem;
-  letter-spacing: 0.5px;
-  overflow: hidden;
+  text-align: center;
 }
 
 .spinner {
-  width: 60px;
-  height: 60px;
-  border: 4px solid rgba(255, 255, 255, 0.2);
-  border-top: 4px solid #00ff9d;
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-top: 3px solid #00ff9d;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
-  box-shadow: 0 0 15px rgba(0, 255, 157, 0.6);
-}
-
-.loading-text {
-  color: #fff;
-  font-weight: 500;
-  text-align: center;
-  animation: glow 2s ease-in-out infinite alternate;
+  margin: 0 auto;
 }
 
 @keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
   to {
     transform: rotate(360deg);
-  }
-}
-
-@keyframes glow {
-  from {
-    text-shadow: 0 0 5px #00ff9d, 0 0 10px #00ff9d;
-  }
-  to {
-    text-shadow: 0 0 20px #00ff9d, 0 0 40px #00ff9d;
-  }
-}
-
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* LoadingScreen.css */
-/* Themed to match SuccessTransition */
-
-:root {
-  --accent: #00ff9d;
-  --text-light: #f0f0f0;
-  --bg-gradient: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
-}
-
-.loading-screen {
-  height: 100vh;
-  width: 100%;
-  background: var(--bg-gradient);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: var(--text-light);
-  flex-direction: column;
-  text-align: center;
-  overflow: hidden;
-}
-
-.loading-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.loading-spinner {
-  font-size: 3.5rem;
-  color: var(--accent);
-  text-shadow: 0 0 20px rgba(0, 255, 157, 0.6);
-  margin-bottom: 0.5rem;
-}
-
-.loading-text {
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: var(--accent);
-  text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
-}
-
-.loading-subtext {
-  font-size: 1.1rem;
-  color: #ccc;
-  animation: fadeBlink 2s ease-in-out infinite;
-}
-
-/* Pulse animation */
-@keyframes fadeBlink {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
   }
 }
