@@ -1,4 +1,3 @@
-// // App.jsx
 // import React, { useState, useEffect } from "react";
 // import {
 //   BrowserRouter as Router,
@@ -6,6 +5,7 @@
 //   Route,
 //   useLocation,
 //   useNavigate,
+//   Navigate,
 // } from "react-router-dom";
 // import { AnimatePresence, motion } from "framer-motion";
 // import "./App.css";
@@ -44,19 +44,27 @@
 //   const [isLoggedIn, setIsLoggedIn] = useState(false);
 //   const [isLoading, setIsLoading] = useState(false);
 //   const [loadingAction, setLoadingAction] = useState("");
+//   const [isAdmin, setIsAdmin] = useState(false);
+
 //   const location = useLocation();
 //   const navigate = useNavigate();
 
-//   // Restore login state
+//   // Restore login states
 //   useEffect(() => {
 //     const storedLogin = localStorage.getItem("isLoggedIn");
+//     const storedAdmin = localStorage.getItem("isAdmin");
 //     if (storedLogin === "true") setIsLoggedIn(true);
+//     if (storedAdmin === "true") setIsAdmin(true);
 //   }, []);
 
-//   // Save login state
+//   // Save login states
 //   useEffect(() => {
 //     localStorage.setItem("isLoggedIn", isLoggedIn);
 //   }, [isLoggedIn]);
+
+//   useEffect(() => {
+//     localStorage.setItem("isAdmin", isAdmin);
+//   }, [isAdmin]);
 
 //   /* ---------- LOGIN ---------- */
 //   const handleLogin = () => {
@@ -68,7 +76,6 @@
 
 //     setLoadingAction("login");
 //     setIsLoading(true);
-
 //     setTimeout(() => {
 //       setIsLoggedIn(true);
 //       setIsLoading(false);
@@ -88,7 +95,7 @@
 //     }, 2000);
 //   };
 
-//   /* ---------- DISABLE SCROLL ON AUTH-LIKE PAGES ---------- */
+//   /* ---------- DISABLE SCROLL ---------- */
 //   useEffect(() => {
 //     const noScrollPages = [
 //       "/",
@@ -105,7 +112,7 @@
 //     }
 //   }, [location.pathname]);
 
-//   /* ---------- SHOW LOADING SCREEN ---------- */
+//   /* ---------- LOADING SCREEN ---------- */
 //   if (isLoading) {
 //     let message = "Please wait...";
 //     if (loadingAction === "login") message = "Preparing your dashboard...";
@@ -116,7 +123,6 @@
 //   /* ---------- ROUTES ---------- */
 //   return (
 //     <>
-//       {/* ✅ Hide Header on specific pages */}
 //       {![
 //         "/",
 //         "/login",
@@ -124,6 +130,7 @@
 //         "/auth",
 //         "/success",
 //         "/admin-login",
+//         "/admin",
 //         "/admin/panel",
 //       ].includes(location.pathname) && (
 //         <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
@@ -131,7 +138,7 @@
 
 //       <AnimatePresence mode="wait">
 //         <Routes location={location} key={location.pathname}>
-//           {/* HOME PAGE */}
+//           {/* HOME */}
 //           <Route
 //             path="/"
 //             element={
@@ -151,7 +158,7 @@
 //             }
 //           />
 
-//           {/* ACCOUNT PAGE */}
+//           {/* ACCOUNT */}
 //           <Route
 //             path="/account"
 //             element={
@@ -161,7 +168,7 @@
 //             }
 //           />
 
-//           {/* LOGIN PAGE */}
+//           {/* LOGIN */}
 //           <Route
 //             path="/login"
 //             element={
@@ -171,7 +178,7 @@
 //             }
 //           />
 
-//           {/* REGISTER PAGE */}
+//           {/* REGISTER */}
 //           <Route
 //             path="/register"
 //             element={
@@ -181,7 +188,7 @@
 //             }
 //           />
 
-//           {/* SUCCESS TRANSITION PAGE */}
+//           {/* SUCCESS */}
 //           <Route
 //             path="/success"
 //             element={
@@ -191,25 +198,32 @@
 //             }
 //           />
 
-//           {/* ADMIN LOGIN PAGE */}
+//           {/* ADMIN LOGIN */}
 //           <Route
 //             path="/admin-login"
 //             element={
 //               <PageWrapper>
-//                 <AdminLogin />
+//                 <AdminLogin setIsAdmin={setIsAdmin} />
 //               </PageWrapper>
 //             }
 //           />
 
-//           {/* ✅ ADMIN PANEL PAGE */}
+//           {/* ✅ ADMIN PANEL (Protected) */}
 //           <Route
 //             path="/admin/panel"
 //             element={
-//               <PageWrapper>
-//                 <AdminPanel />
-//               </PageWrapper>
+//               isAdmin ? (
+//                 <PageWrapper>
+//                   <AdminPanel setIsAdmin={setIsAdmin} />
+//                 </PageWrapper>
+//               ) : (
+//                 <Navigate to="/admin-login" replace />
+//               )
 //             }
 //           />
+
+//           {/* Redirect /admin → /admin-login */}
+//           <Route path="/admin" element={<Navigate to="/admin-login" replace />} />
 //         </Routes>
 //       </AnimatePresence>
 //     </>
@@ -225,7 +239,8 @@
 //   );
 // }
 
-// App.jsx
+
+
 import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -238,7 +253,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import "./App.css";
 
-// Pages
+/* ---------- PAGES ---------- */
 import MyAccount from "./pages/MyAccount";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -248,8 +263,10 @@ import LoadingScreen from "./pages/LoadingScreen";
 import SuccessTransition from "./pages/SuccessTransition";
 import AdminLogin from "./pages/AdminLogin";
 import AdminPanel from "./pages/AdminPanel";
+import Transfer from "./pages/Transfer";   // ✅ NEW PAGE
+// import Withdraw from "./pages/Withdraw";  // (Optional)
 
-// Components
+/* ---------- COMPONENTS ---------- */
 import Header from "./components/Header";
 
 /* ---------- PAGE WRAPPER ---------- */
@@ -277,15 +294,16 @@ function AppContent() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Restore login states
+  /* ---------- RESTORE LOGIN STATE ---------- */
   useEffect(() => {
     const storedLogin = localStorage.getItem("isLoggedIn");
     const storedAdmin = localStorage.getItem("isAdmin");
+
     if (storedLogin === "true") setIsLoggedIn(true);
     if (storedAdmin === "true") setIsAdmin(true);
   }, []);
 
-  // Save login states
+  /* ---------- SAVE LOGIN STATES ---------- */
   useEffect(() => {
     localStorage.setItem("isLoggedIn", isLoggedIn);
   }, [isLoggedIn]);
@@ -296,14 +314,15 @@ function AppContent() {
 
   /* ---------- LOGIN ---------- */
   const handleLogin = () => {
-    const loginRestricted = localStorage.getItem("loginRestricted") === "true";
-    if (loginRestricted) {
+    const restricted = localStorage.getItem("loginRestricted") === "true";
+    if (restricted) {
       alert("🚫 Logins are currently disabled by the Admin.");
       return;
     }
 
     setLoadingAction("login");
     setIsLoading(true);
+
     setTimeout(() => {
       setIsLoggedIn(true);
       setIsLoading(false);
@@ -315,6 +334,7 @@ function AppContent() {
   const handleLogout = () => {
     setLoadingAction("logout");
     setIsLoading(true);
+
     setTimeout(() => {
       setIsLoggedIn(false);
       localStorage.removeItem("isLoggedIn");
@@ -323,7 +343,7 @@ function AppContent() {
     }, 2000);
   };
 
-  /* ---------- DISABLE SCROLL ---------- */
+  /* ---------- DISABLE SCROLL ON SPECIFIC PAGES ---------- */
   useEffect(() => {
     const noScrollPages = [
       "/",
@@ -333,6 +353,7 @@ function AppContent() {
       "/success",
       "/admin-login",
     ];
+
     if (noScrollPages.includes(location.pathname)) {
       document.body.classList.add("no-scroll");
     } else {
@@ -345,27 +366,22 @@ function AppContent() {
     let message = "Please wait...";
     if (loadingAction === "login") message = "Preparing your dashboard...";
     if (loadingAction === "logout") message = "Exiting dashboard...";
+
     return <LoadingScreen message={message} />;
   }
 
   /* ---------- ROUTES ---------- */
   return (
     <>
-      {![
-        "/",
-        "/login",
-        "/register",
-        "/auth",
-        "/success",
-        "/admin-login",
-        "/admin",
-        "/admin/panel",
-      ].includes(location.pathname) && (
+      {/* HIDE HEADER ON AUTH/ADMIN PAGES */}
+      {![ "/", "/login", "/register", "/auth", "/success", "/admin-login", "/admin", "/admin/panel" ]
+        .includes(location.pathname) && (
         <Header isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
       )}
 
       <AnimatePresence mode="wait">
         <Routes location={location} key={location.pathname}>
+          
           {/* HOME */}
           <Route
             path="/"
@@ -376,7 +392,7 @@ function AppContent() {
             }
           />
 
-          {/* AUTH CHOICE */}
+          {/* AUTH PICKER */}
           <Route
             path="/auth"
             element={
@@ -386,7 +402,7 @@ function AppContent() {
             }
           />
 
-          {/* ACCOUNT */}
+          {/* ACCOUNT DASHBOARD */}
           <Route
             path="/account"
             element={
@@ -395,6 +411,28 @@ function AppContent() {
               </PageWrapper>
             }
           />
+
+          {/* TRANSFER PAGE — NEW */}
+          <Route
+            path="/transfer"
+            element={
+              <PageWrapper>
+                <Transfer />
+              </PageWrapper>
+            }
+          />
+
+          {/* WITHDRAW (optional) */}
+          {/* 
+          <Route
+            path="/withdraw"
+            element={
+              <PageWrapper>
+                <Withdraw />
+              </PageWrapper>
+            }
+          />
+          */}
 
           {/* LOGIN */}
           <Route
@@ -416,7 +454,7 @@ function AppContent() {
             }
           />
 
-          {/* SUCCESS */}
+          {/* SUCCESS PAGE */}
           <Route
             path="/success"
             element={
@@ -436,7 +474,7 @@ function AppContent() {
             }
           />
 
-          {/* ✅ ADMIN PANEL (Protected) */}
+          {/* ADMIN PANEL (Protected) */}
           <Route
             path="/admin/panel"
             element={
@@ -450,7 +488,7 @@ function AppContent() {
             }
           />
 
-          {/* Redirect /admin → /admin-login */}
+          {/* REDIRECT /admin → /admin-login */}
           <Route path="/admin" element={<Navigate to="/admin-login" replace />} />
         </Routes>
       </AnimatePresence>
@@ -458,7 +496,7 @@ function AppContent() {
   );
 }
 
-/* ---------- MAIN APP WRAPPER ---------- */
+/* ---------- MAIN APP ---------- */
 export default function App() {
   return (
     <Router>

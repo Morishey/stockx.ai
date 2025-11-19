@@ -17,15 +17,26 @@ export default function Header() {
 
   if (hideHeader) return null;
 
+  // Handler to refresh page when Home clicked
+  const handleHomeClick = (e) => {
+    e.preventDefault(); // prevent default link behavior
+    window.location.reload(); // force full reload
+  };
+
   return (
     <header className="header">
-      <Link to="/" className="logo">
+      <a href="/" className="logo" onClick={handleHomeClick}>
         StockX<span>.ai</span>
-      </Link>
+      </a>
 
       <nav className="nav">
-        <Link to="/">Home</Link>
-        <Link to="/markets">Markets</Link>
+        {/* Home button refreshes page */}
+        <a href="/" onClick={handleHomeClick}>
+          Home
+        </a>
+
+        {/* Other links use react-router-dom's client-side routing */}
+        <Link to="/markets">Markets</Link>gi
         <Link to="/portfolio">Portfolio</Link>
         <Link to="/account">Account</Link>
       </nav>
