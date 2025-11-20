@@ -3,6 +3,7 @@
   width: 100%;
   min-height: 100vh;
   display: flex;
+  outline: none;
   justify-content: center;
   align-items: flex-start;
   padding: 20px;
@@ -10,8 +11,9 @@
   padding-bottom: 100px;
   background-color: rgba(0, 20, 30, 0.4);
   box-sizing: border-box;
-  font-family: 'Inter', 'Roboto', 'Segoe UI', 'Helvetica Neue', sans-serif; /* modern font */
+  font-family: "Inter", "Roboto", "Segoe UI", "Helvetica Neue", sans-serif; /* modern font */
   color: #fff;
+  border: none;
 }
 
 /* Centered container with max width */
@@ -24,7 +26,7 @@
 .transfer-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin-bottom: 20px;
   color: #fff;
   position: sticky;
@@ -88,15 +90,16 @@
 .form-group input {
   padding: 12px 14px;
   border: 1px solid #ccc;
+  color: #fff;
   border-radius: 8px;
   font-size: 1rem;
   outline: none;
   transition: border 0.3s, box-shadow 0.3s;
-  background-color: #fff;
+  background-color: #00000013;
 }
 
 .form-group input:focus {
-  border-color: #007bff;
+  border-color: #00c8ff;
   box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
 }
 
@@ -105,12 +108,13 @@
   color: #888; /* gray placeholder */
   opacity: 1;
   font-style: italic;
+  background-color: #888;
 }
 
 /* Error message under input */
 .error-text {
   font-size: 0.8rem;
-  color: red;
+  color: red !important;
   margin-top: 2px;
 }
 
@@ -138,12 +142,12 @@
 }
 
 .transfer-btn {
-  background-color: #28a745;
+  background: linear-gradient(90deg, #00ff9d6a, #00c8ff90);
   color: #fff;
 }
 
 .transfer-btn:hover {
-  background-color: #218838;
+  background-color: #2188373f;
 }
 
 .fee-paid {
@@ -179,12 +183,12 @@
   }
 }
 /* Remove number input spinners and scroll bar */
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield; /* Firefox */
 }

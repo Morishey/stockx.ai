@@ -1,43 +1,23 @@
 // src/pages/Login.jsx
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "../styles/Auth.css";
 
-export default function Login({ onLogin }) {
-  const navigate = useNavigate();
+export default function Login({ onLogin, errorMessage, clearError }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
+
+  // Optional: clear error when user changes input
+  useEffect(() => {
+    if (errorMessage) {
+      clearError();
+    }
+  }, [email, password]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || [];
-    const matchedUser = storedUsers.find(
-      (user) => user.email === email && user.password === password
-    );
-
-    const loginRestricted = localStorage.getItem("loginRestricted") === "true";
-
-    if (loginRestricted) {
-      setError("🚫 Login temporarily disabled by admin.");
-      return;
-    }
-
-    if (!matchedUser) {
-      setError("❌ Login invalid. Try again.");
-      return;
-    }
-
-    if (matchedUser.isBlocked) {
-      setError("🚷 Your account has been blocked by admin.");
-      return;
-    }
-
-    // ✅ Successful login
-    setError("");
-    onLogin();
+    onLogin(email, password);
   };
 
   return (
@@ -65,13 +45,14 @@ export default function Login({ onLogin }) {
             <span
               className="toggle-password"
               onClick={() => setShowPassword(!showPassword)}
+              style={{ cursor: "pointer" }}
             >
               {showPassword ? "🙈" : "👁️"}
             </span>
           </div>
 
-          {/* ✅ Error message appears below password */}
-          {error && <p className="error-message">{error}</p>}
+          {/* Show error message passed from App.js */}
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
 
           <button type="submit" className="auth-btn">
             Login

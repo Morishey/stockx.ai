@@ -36,7 +36,7 @@ export default function Header() {
         </a>
 
         {/* Other links use react-router-dom's client-side routing */}
-        <Link to="/markets">Markets</Link>gi
+        <Link to="/markets">Markets</Link>
         <Link to="/portfolio">Portfolio</Link>
         <Link to="/account">Account</Link>
       </nav>
